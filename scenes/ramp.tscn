@@ -19,4 +19,3 @@ material = SubResource("StandardMaterial3D_bxke3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -240.998, 36.5753)
 shape = SubResource("BoxShape3D_sa6wi")
-disabled = true
