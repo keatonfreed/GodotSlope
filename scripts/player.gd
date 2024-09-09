@@ -37,6 +37,9 @@ func _physics_process(delta: float) -> void:
 		#angular_velocity.z = -200000*delta
 	#angular_velocity.z = sign(angular_velocity.z) * min(abs(angular_velocity.z),max_speed)
 		
+	#apply_central_force(Vector3(0,-20,0))
+	apply_central_impulse(Vector3(0,0,-8))
+	#angular_velocity.x += -1
 	var is_on_floor = $FloorCheck.is_colliding()
 	var now_time = Time.get_ticks_msec()
 	if Input.is_action_just_pressed("Jump") and is_on_floor and now_time - last_jumped > 1000:
