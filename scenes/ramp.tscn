@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2wxvdtt5ekue"]
+
+[ext_resource type="Texture2D" uid="uid://bayjo7stqf7qw" path="res://icon.svg" id="1_m8gdm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxke3"]
+albedo_texture = ExtResource("1_m8gdm")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sa6wi"]
+size = Vector3(10, 500, 60)
+
+[node name="Ramp" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 2)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -241.481, 36.7048)
+size = Vector3(10, 501, 60)
+material = SubResource("StandardMaterial3D_bxke3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -240.998, 36.5753)
+shape = SubResource("BoxShape3D_sa6wi")
+disabled = true

@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6royrla4ony2"]
+
+[ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
+[ext_resource type="Script" path="res://scripts/deathzone.gd" id="2_gr8ie"]
+[ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/ramp.tscn" id="3_ullax"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qv182"]
+height = 3.0
+radius = 4.0
+
+[sub_resource type="Environment" id="Environment_nl3g5"]
+background_mode = 1
+background_color = Color(0, 0.815686, 0.905882, 1)
+ambient_light_color = Color(0.694118, 0.717647, 0.921569, 1)
+fog_enabled = true
+fog_light_color = Color(0.0961496, 0.167399, 0.330373, 1)
+fog_density = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_utgrl"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -18.3986, 0)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2.38934, 0, 0, 0, 2.23729, 0.838715, 0, -0.838715, 2.23729, -0.0814095, -7.9798, -4.21776)
+shape = SubResource("CylinderShape3D_qv182")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="StaticBody3D"]
+transform = Transform3D(2.38934, 0, 0, 0, 2.23729, 0.838715, 0, -0.838715, 2.23729, 0, -8.0181, -4.12534)
+radius = 4.0
+height = 3.0
+sides = 16
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -24.7734, -16.3896)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(2.38934, 0, 0, 0, 2.23729, 0.838715, 0, -0.838715, 2.23729, -0.0814095, -7.9798, -4.21776)
+shape = SubResource("CylinderShape3D_qv182")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="StaticBody3D2"]
+transform = Transform3D(2.38934, 0, 0, 0, 2.23729, 0.838715, 0, -0.838715, 2.23729, -0.00154638, -8.04562, -4.11514)
+radius = 4.0
+height = 3.0
+sides = 16
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.5, -0.75, 0.433013, 0, 0.5, 0.866025, -0.866026, -0.433013, 0.25, 0, 5, 0)
+light_color = Color(0.750881, 0.997707, 1, 1)
+shadow_enabled = true
+shadow_blur = 1.787
+
+[node name="Player" parent="." instance=ExtResource("1_tergn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.34854, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_nl3g5")
+
+[node name="DeathZone" type="Area3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -89.0157, -30)
+script = ExtResource("2_gr8ie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
+shape = SubResource("BoxShape3D_utgrl")
+
+[node name="Ramp" parent="." instance=ExtResource("3_ullax")]
+
+[connection signal="body_entered" from="DeathZone" to="DeathZone" method="_on_body_entered"]
