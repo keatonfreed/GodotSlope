@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_2mxt0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2haeu"]
-friction = 0.5
-bounce = 0.1
+friction = 0.3
+bounce = 0.15
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1qq0k"]
 radius = 0.7
@@ -25,30 +25,35 @@ noise = SubResource("FastNoiseLite_5ufcl")
 albedo_color = Color(0.580302, 0.999906, 0.515242, 1)
 albedo_texture = SubResource("NoiseTexture2D_ah4bd")
 roughness_texture = SubResource("NoiseTexture2D_ah4bd")
+emission_enabled = true
+emission = Color(0.0903607, 0.14938, 0.0492896, 1)
+emission_energy_multiplier = 7.93
 normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_ah4bd")
+backlight = Color(1, 1, 1, 1)
 
 [node name="Player" type="RigidBody3D"]
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_2haeu")
-gravity_scale = 2.0
+gravity_scale = 4.0
 linear_damp_mode = 1
-angular_damp = 4.0
+angular_damp = 0.5
 script = ExtResource("1_2mxt0")
+jump_force = 1500
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_1qq0k")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 radius = 0.7
-rings = 18
+radial_segments = 24
+rings = 36
 material = SubResource("StandardMaterial3D_yfgi0")
 
 [node name="CameraRig" type="Marker3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 3.3, 4.5)
+transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 0, 3.3, -4.5)
 current = true
 
 [node name="FloorCheck" type="RayCast3D" parent="."]
-target_position = Vector3(0, -0.8, 0)

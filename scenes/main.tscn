@@ -1,43 +1,61 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=11 format=3 uid="uid://c6royrla4ony2"]
 
 [ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
-[ext_resource type="Script" path="res://scripts/deathzone.gd" id="2_gr8ie"]
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
+[ext_resource type="Script" path="res://scripts/ramp_def.gd" id="3_g1uq4"]
 [ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/ramp.tscn" id="3_ullax"]
+[ext_resource type="PackedScene" uid="uid://b7xoi4nxruh4m" path="res://scenes/ramp_long.tscn" id="5_r5ivx"]
+[ext_resource type="PackedScene" uid="uid://bs5w7cpnvtcky" path="res://scenes/ramp_block.tscn" id="6_d4px6"]
 
 [sub_resource type="Environment" id="Environment_nl3g5"]
 background_mode = 1
-background_color = Color(0.513726, 0.764706, 0.894118, 1)
-ambient_light_color = Color(0.694118, 0.717647, 0.921569, 1)
+background_color = Color(0.4752, 0.53676, 0.54, 1)
+background_energy_multiplier = 1.8
+ambient_light_source = 2
+ambient_light_color = Color(0.54, 1, 0.586, 1)
 glow_enabled = true
-fog_enabled = true
+glow_bloom = 1.0
 fog_mode = 1
-fog_light_color = Color(0.3332, 0.44302, 0.68, 1)
-fog_light_energy = 2.0
-fog_density = 0.3
+fog_light_color = Color(0.0435, 0.0455583, 0.05, 1)
+fog_light_energy = 16.0
+fog_density = 0.8
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_utgrl"]
+[sub_resource type="Resource" id="Resource_ehqe0"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("3_ullax")
+ramp_length = 65
+ramp_height = 23
+
+[sub_resource type="Resource" id="Resource_ac7o4"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("5_r5ivx")
+ramp_length = 107
+ramp_height = 35
+
+[sub_resource type="Resource" id="Resource_u2qsr"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("6_d4px6")
+ramp_length = 107
+ramp_height = 35
 
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.5, -0.75, 0.433013, 0, 0.5, 0.866025, -0.866026, -0.433013, 0.25, 0, 5, 0)
-light_color = Color(1, 0.952, 0.68, 1)
+light_color = Color(0.7075, 1, 0.61, 1)
+light_energy = 1.5
 shadow_enabled = true
-shadow_blur = 1.787
+shadow_blur = 1.989
 
 [node name="Player" parent="." instance=ExtResource("1_tergn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.34854, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74603, -1.26958)
+mass = 115.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nl3g5")
 
-[node name="DeathZone" type="Area3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -89.0157, -30)
-script = ExtResource("2_gr8ie")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DeathZone"]
-shape = SubResource("BoxShape3D_utgrl")
-
-[node name="Ramp" parent="." instance=ExtResource("3_ullax")]
-
-[connection signal="body_entered" from="DeathZone" to="DeathZone" method="_on_body_entered"]
+[node name="Ramps" type="Node3D" parent="."]
+script = ExtResource("3_crks3")
+ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr")])

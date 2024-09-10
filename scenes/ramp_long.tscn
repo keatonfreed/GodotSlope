@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2wxvdtt5ekue"]
+[gd_scene load_steps=9 format=3 uid="uid://b7xoi4nxruh4m"]
 
-[ext_resource type="Script" path="res://scripts/ramp.gd" id="1_vxfkh"]
-[ext_resource type="PackedScene" uid="uid://cw0fuacj5lhgf" path="res://scenes/death_zone.tscn" id="1_y74ue"]
+[ext_resource type="Script" path="res://scripts/ramp.gd" id="1_b8kkj"]
+[ext_resource type="PackedScene" uid="uid://cw0fuacj5lhgf" path="res://scenes/death_zone.tscn" id="2_lpxhh"]
 
 [sub_resource type="Gradient" id="Gradient_c7f2a"]
 
@@ -23,15 +23,15 @@ normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_oubgn")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
-size = Vector3(10, 501, 60)
+size = Vector3(6.26172, 501, 94.3745)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
-size = Vector3(10.0078, 1.44801, 4.01685)
+size = Vector3(6.25293, 1.44801, 4.01685)
 
 [node name="Node3D5" type="Node3D"]
-script = ExtResource("1_vxfkh")
+script = ExtResource("1_b8kkj")
 
-[node name="DeathZone" parent="." instance=ExtResource("1_y74ue")]
+[node name="DeathZone" parent="." instance=ExtResource("2_lpxhh")]
 transform = Transform3D(100, 0, 0, 0, 97.4366, -22.4968, 0, 22.4968, 97.4366, 0, -32.2795, 15.0409)
 
 [node name="Ramp" type="Node3D" parent="."]
@@ -40,25 +40,25 @@ transform = Transform3D(100, 0, 0, 0, 97.4366, -22.4968, 0, 22.4968, 97.4366, 0,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 0, -231.204, 34.692)
-size = Vector3(10, 501, 60)
+transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.44748e-06, -235.641, 51.2493)
+size = Vector3(6.23145, 501, 94.2827)
 material = SubResource("StandardMaterial3D_7a6v3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 0, -231.204, 34.692)
+transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.45136e-06, -235.652, 51.2936)
 shape = SubResource("BoxShape3D_mb2s3")
 
 [node name="Node3D4" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D4"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, 7.54163, -55.4137)
-size = Vector3(10.1, 1.47531, 4.017)
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, -1.54034, -22.256)
+size = Vector3(6.2793, 1.47531, 4.017)
 material = SubResource("StandardMaterial3D_7a6v3")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D4"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, 7.55496, -55.4109)
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, -1.52701, -22.2532)
 shape = SubResource("BoxShape3D_nckkp")
 
-[node name="DeathZone2" parent="." instance=ExtResource("1_y74ue")]
+[node name="DeathZone2" parent="." instance=ExtResource("2_lpxhh")]
 transform = Transform3D(169.139, 0, 0, 0, 164.803, -38.0509, 0, 38.0509, 164.803, 0, -65.125, -4.10777)
