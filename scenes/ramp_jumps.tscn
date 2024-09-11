@@ -1,36 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnd8wifl6qr15"]
+[gd_scene load_steps=8 format=3 uid="uid://bnd8wifl6qr15"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_w0v2y"]
 [ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_fkojr"]
 [ext_resource type="Material" uid="uid://8jkcngsq66dd" path="res://textures/ground.tres" id="3_6o1o4"]
+[ext_resource type="Material" uid="uid://dhkejbg1o3j2o" path="res://textures/death.tres" id="4_d35lq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tno5s"]
 size = Vector3(6.26172, 501, 94.3745)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
 size = Vector3(6.4502, 1.44801, 4.01685)
-
-[sub_resource type="Gradient" id="Gradient_c7f2a"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1od3w"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_whsxy"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-color_ramp = SubResource("Gradient_c7f2a")
-noise = SubResource("FastNoiseLite_1od3w")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocq5y"]
-albedo_color = Color(0.307838, 0.0662721, 0.151384, 1)
-metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_whsxy")
-emission_enabled = true
-emission = Color(0.87, 0, 0, 1)
-emission_energy_multiplier = 15.53
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_whsxy")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k7mr0"]
 size = Vector3(6.28815, 2.43091, 0.706667)
@@ -76,8 +55,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 165.249)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Death"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.13754e-05, 0.965459, 0.260557, -2.98013e-06, 0.260557, -0.965459, 0.00411452, 24.1636, -101.007)
+cast_shadow = 0
 size = Vector3(6.24304, 2.46331, 0.663774)
-material = SubResource("StandardMaterial3D_ocq5y")
+material = ExtResource("4_d35lq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Death"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.13754e-05, 0.965459, 0.260557, -2.98013e-06, 0.260557, -0.965459, 0.0180174, 24.1423, -100.998)
