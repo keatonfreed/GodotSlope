@@ -1,14 +1,39 @@
-[gd_scene load_steps=11 format=3 uid="uid://bs5w7cpnvtcky"]
+[gd_scene load_steps=14 format=3 uid="uid://biqifqlm50skc"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_ovidh"]
-[ext_resource type="PackedScene" uid="uid://cw0fuacj5lhgf" path="res://scenes/death_zone.tscn" id="2_4f85i"]
+[ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_4f85i"]
+
+[sub_resource type="Gradient" id="Gradient_l4ork"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_kok73"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_838ca"]
+in_3d_space = true
+seamless = true
+as_normal_map = true
+color_ramp = SubResource("Gradient_l4ork")
+noise = SubResource("FastNoiseLite_kok73")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a6v3"]
+albedo_color = Color(0.0736, 0.155733, 0.32, 1)
+metallic = 0.2
+roughness_texture = SubResource("NoiseTexture2D_838ca")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_838ca")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
+size = Vector3(6.26172, 501, 94.3745)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
+size = Vector3(6.4502, 1.44801, 4.01685)
 
 [sub_resource type="Gradient" id="Gradient_c7f2a"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1od3w"]
 noise_type = 2
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oubgn"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cbknu"]
 in_3d_space = true
 seamless = true
 as_normal_map = true
@@ -18,28 +43,15 @@ noise = SubResource("FastNoiseLite_1od3w")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocq5y"]
 albedo_color = Color(0.307838, 0.0662721, 0.151384, 1)
 metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_oubgn")
+roughness_texture = SubResource("NoiseTexture2D_cbknu")
 emission_enabled = true
 emission = Color(0.87, 0, 0, 1)
 emission_energy_multiplier = 15.53
 normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_oubgn")
+normal_texture = SubResource("NoiseTexture2D_cbknu")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k7mr0"]
 size = Vector3(2.35986, 7.21534, 4.01685)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a6v3"]
-albedo_color = Color(0.0736, 0.155733, 0.32, 1)
-metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_oubgn")
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_oubgn")
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
-size = Vector3(6.26172, 501, 94.3745)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
-size = Vector3(6.4502, 1.44801, 4.01685)
 
 [node name="Node3D5" type="Node3D"]
 script = ExtResource("1_ovidh")
@@ -49,53 +61,65 @@ transform = Transform3D(100, 0, 0, 0, 97.4366, -22.4968, 0, 22.4968, 97.4366, 0,
 
 [node name="Ramp" type="Node3D" parent="."]
 
-[node name="Node3D5" type="StaticBody3D" parent="Ramp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 216.02)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D5"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.9733, 21.9552, -136.854)
-size = Vector3(2.36133, 7.2108, 4.017)
-material = SubResource("StandardMaterial3D_ocq5y")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D5"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.93611, 21.9577, -136.818)
-shape = SubResource("BoxShape3D_k7mr0")
-
-[node name="Node3D3" type="StaticBody3D" parent="Ramp"]
+[node name="Floor" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.44748e-06, -235.641, 51.2493)
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.44748e-06, -235.641, 51.2493)
 size = Vector3(6.23145, 501, 94.2827)
 material = SubResource("StandardMaterial3D_7a6v3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.45136e-06, -235.652, 51.2936)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
 shape = SubResource("BoxShape3D_mb2s3")
 
-[node name="Node3D4" type="StaticBody3D" parent="Ramp"]
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
+size = Vector3(6.26172, 501, 94.3745)
+
+[node name="Ramp" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D4"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Ramp"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, -1.54034, -22.256)
 size = Vector3(6.2793, 1.47531, 4.017)
 material = SubResource("StandardMaterial3D_7a6v3")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Ramp"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, -1.52701, -22.2532)
 shape = SubResource("BoxShape3D_nckkp")
 
-[node name="Node3D6" type="StaticBody3D" parent="Ramp"]
+[node name="Death2" type="StaticBody3D" parent="Ramp" groups=["DeathBlock"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 216.02)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Death2"]
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.9733, 21.9552, -136.854)
+size = Vector3(2.36133, 7.2108, 4.017)
+material = SubResource("StandardMaterial3D_ocq5y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Death2"]
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.93611, 21.9577, -136.818)
+shape = SubResource("BoxShape3D_k7mr0")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Death2"]
+transform = Transform3D(-1, -1.17628e-05, -1.50724e-07, -1.17326e-05, 0.998198, -0.0600012, 8.56236e-07, -0.0600012, -0.998198, -1.93611, 21.9577, -136.818)
+size = Vector3(2.35986, 7.21534, 4.01685)
+
+[node name="Death1" type="StaticBody3D" parent="Ramp" groups=["DeathBlock"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 165.249)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D6"]
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Death1"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.94495, 28.3103, -113.968)
 size = Vector3(2.36133, 7.2108, 4.017)
 material = SubResource("StandardMaterial3D_ocq5y")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D6"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Death1"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.98214, 28.3128, -113.932)
 shape = SubResource("BoxShape3D_k7mr0")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Death1"]
+transform = Transform3D(-1, -1.17628e-05, -1.50724e-07, -1.17326e-05, 0.998198, -0.0600012, 8.56236e-07, -0.0600012, -0.998198, 1.98214, 28.3128, -113.932)
+size = Vector3(2.35986, 7.21534, 4.01685)
 
 [node name="DeathZone2" parent="." instance=ExtResource("2_4f85i")]
 transform = Transform3D(169.139, 0, 0, 0, 164.803, -38.0509, 0, 38.0509, 164.803, 0, -65.125, -4.10777)

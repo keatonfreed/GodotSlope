@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2wxvdtt5ekue"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_vxfkh"]
-[ext_resource type="PackedScene" uid="uid://cw0fuacj5lhgf" path="res://scenes/death_zone.tscn" id="1_y74ue"]
+[ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="1_y74ue"]
 
 [sub_resource type="Gradient" id="Gradient_c7f2a"]
 
@@ -47,6 +47,10 @@ material = SubResource("StandardMaterial3D_7a6v3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D3"]
 transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 0, -231.204, 34.692)
 shape = SubResource("BoxShape3D_mb2s3")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Node3D3"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, -231.204, 34.692)
+size = Vector3(10, 501, 60)
 
 [node name="Node3D4" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)

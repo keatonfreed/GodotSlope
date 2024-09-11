@@ -8,4 +8,8 @@ func _process(delta: float) -> void:
 	#print(str(player_node.global_position.z) + " " + str(global_position.z))
 	if(player_node.global_position.z > global_position.z + 200):
 		queue_free()
-		print("Delete")
+		#print("Delete")
+
+
+func _on_body_entered(body: Node3D) -> void:
+	pass # Replace with function body.

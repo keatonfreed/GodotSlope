@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=13 format=3 uid="uid://c6royrla4ony2"]
 
 [ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
 [ext_resource type="Script" path="res://scripts/ramp_def.gd" id="3_g1uq4"]
 [ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/ramp.tscn" id="3_ullax"]
 [ext_resource type="PackedScene" uid="uid://b7xoi4nxruh4m" path="res://scenes/ramp_long.tscn" id="5_r5ivx"]
-[ext_resource type="PackedScene" uid="uid://bs5w7cpnvtcky" path="res://scenes/ramp_block.tscn" id="6_d4px6"]
+[ext_resource type="PackedScene" uid="uid://biqifqlm50skc" path="res://scenes/ramp_block.tscn" id="6_d4px6"]
+[ext_resource type="PackedScene" uid="uid://bnd8wifl6qr15" path="res://scenes/ramp_jumps.tscn" id="7_mnv1y"]
 
 [sub_resource type="Environment" id="Environment_nl3g5"]
 background_mode = 1
@@ -40,6 +41,12 @@ ramp_scene = ExtResource("6_d4px6")
 ramp_length = 107
 ramp_height = 35
 
+[sub_resource type="Resource" id="Resource_n3ls6"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("7_mnv1y")
+ramp_length = 105
+ramp_height = 38
+
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -50,7 +57,7 @@ shadow_enabled = true
 shadow_blur = 1.989
 
 [node name="Player" parent="." instance=ExtResource("1_tergn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.74603, -1.26958)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
 mass = 115.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -58,4 +65,4 @@ environment = SubResource("Environment_nl3g5")
 
 [node name="Ramps" type="Node3D" parent="."]
 script = ExtResource("3_crks3")
-ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr")])
+ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr"), SubResource("Resource_n3ls6")])

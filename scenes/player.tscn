@@ -1,6 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1kvv48505hsb"]
+[gd_scene load_steps=7 format=3 uid="uid://d1kvv48505hsb"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_2mxt0"]
+[ext_resource type="Material" uid="uid://dosc6jjayee8m" path="res://textures/new_standard_material_3d.tres" id="2_xn5on"]
+[ext_resource type="PrismMesh" uid="uid://bg3jfryps3oek" path="res://models/player.tres" id="3_mjmpx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2haeu"]
 friction = 0.3
@@ -9,46 +11,47 @@ bounce = 0.15
 [sub_resource type="SphereShape3D" id="SphereShape3D_1qq0k"]
 radius = 0.7
 
-[sub_resource type="Gradient" id="Gradient_g4tlh"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5ufcl"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ah4bd"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-color_ramp = SubResource("Gradient_g4tlh")
-noise = SubResource("FastNoiseLite_5ufcl")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfgi0"]
-albedo_color = Color(0.580302, 0.999906, 0.515242, 1)
-albedo_texture = SubResource("NoiseTexture2D_ah4bd")
-roughness_texture = SubResource("NoiseTexture2D_ah4bd")
-emission_enabled = true
-emission = Color(0.0903607, 0.14938, 0.0492896, 1)
-emission_energy_multiplier = 7.93
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_ah4bd")
-backlight = Color(1, 1, 1, 1)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nsi6p"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.7
+angle_min = -50.0
+angle_max = 50.0
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 3.0
+initial_velocity_max = 11.0
+gravity = Vector3(0, -11, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = 0.999998
+radial_accel_min = -2.23517e-06
+radial_accel_max = 2.0
+damping_max = 3.0
+collision_mode = 1
+collision_friction = 0.4
+collision_bounce = 0.3
+collision_use_scale = true
 
 [node name="Player" type="RigidBody3D"]
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_2haeu")
 gravity_scale = 4.0
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 5
 linear_damp_mode = 1
 angular_damp = 0.5
 script = ExtResource("1_2mxt0")
-jump_force = 1500
+jump_force = 1600
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_1qq0k")
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+[node name="Model" type="CSGSphere3D" parent="."]
 radius = 0.7
 radial_segments = 24
 rings = 36
-material = SubResource("StandardMaterial3D_yfgi0")
+material = ExtResource("2_xn5on")
 
 [node name="CameraRig" type="Marker3D" parent="."]
 
@@ -57,3 +60,46 @@ transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228
 current = true
 
 [node name="FloorCheck" type="RayCast3D" parent="."]
+
+[node name="Particles" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 115
+lifetime = 3.0
+one_shot = true
+speed_scale = 1.4
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_nsi6p")
+draw_pass_1 = ExtResource("3_mjmpx")
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="Particles_old" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 150
+lifetime = 3.0
+one_shot = true
+speed_scale = 1.4
+explosiveness = 1.0
+mesh = ExtResource("3_mjmpx")
+emission_shape = 1
+emission_sphere_radius = 0.6
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, -14, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 8.0
+angular_velocity_min = -5.0
+angular_velocity_max = 5.0
+linear_accel_min = 3.0
+linear_accel_max = 5.0
+radial_accel_min = 4.0
+radial_accel_max = 6.0
+damping_min = 10.0
+damping_max = 10.0
+angle_max = 180.0
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

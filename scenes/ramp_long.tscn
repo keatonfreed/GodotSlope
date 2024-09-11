@@ -1,7 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7xoi4nxruh4m"]
+[gd_scene load_steps=13 format=3 uid="uid://b7xoi4nxruh4m"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_b8kkj"]
-[ext_resource type="PackedScene" uid="uid://cw0fuacj5lhgf" path="res://scenes/death_zone.tscn" id="2_lpxhh"]
+[ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_lpxhh"]
+
+[sub_resource type="Gradient" id="Gradient_q0hgi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xw1tt"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f22n2"]
+in_3d_space = true
+seamless = true
+as_normal_map = true
+color_ramp = SubResource("Gradient_q0hgi")
+noise = SubResource("FastNoiseLite_xw1tt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_peaxg"]
+albedo_color = Color(0.0736, 0.155733, 0.32, 1)
+metallic = 0.2
+roughness_texture = SubResource("NoiseTexture2D_f22n2")
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_f22n2")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_scl8f"]
+size = Vector3(6.26172, 501, 94.3745)
 
 [sub_resource type="Gradient" id="Gradient_c7f2a"]
 
@@ -22,9 +44,6 @@ roughness_texture = SubResource("NoiseTexture2D_oubgn")
 normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_oubgn")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
-size = Vector3(6.26172, 501, 94.3745)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
 size = Vector3(6.25293, 1.44801, 4.01685)
 
@@ -36,17 +55,21 @@ transform = Transform3D(100, 0, 0, 0, 97.4366, -22.4968, 0, 22.4968, 97.4366, 0,
 
 [node name="Ramp" type="Node3D" parent="."]
 
-[node name="Node3D3" type="StaticBody3D" parent="Ramp"]
+[node name="Floor" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.44748e-06, -235.641, 51.2493)
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.44748e-06, -235.641, 51.2493)
 size = Vector3(6.23145, 501, 94.2827)
-material = SubResource("StandardMaterial3D_7a6v3")
+material = SubResource("StandardMaterial3D_peaxg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D3"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 1.45136e-06, -235.652, 51.2936)
-shape = SubResource("BoxShape3D_mb2s3")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
+shape = SubResource("BoxShape3D_scl8f")
+
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Floor"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
+size = Vector3(6.26172, 501, 94.3745)
 
 [node name="Node3D4" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
