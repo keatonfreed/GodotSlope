@@ -1,6 +1,7 @@
 extends Node
 
 @export var ramp_defs: Array[RampDef] = []
+@export var bg_scenes: Array[PackedScene] = []
 @onready var player_node = $"../Player"
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +22,9 @@ func _process(delta: float) -> void:
 			ramp_spawn_x = 0
 		
 		var new_object = ramp_defs[rand_ramp_ind].ramp_scene.instantiate()
+		
+		#var new_bg = bg_scenes[0].instantiate()
+		
 		add_child(new_object)
 		#print("Made " + str(rand_ramp_ind) + " with " + str(ramp_defs[rand_ramp_ind]))
 		new_object.transform = Transform3D.IDENTITY

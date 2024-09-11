@@ -1,6 +1,6 @@
 [gd_resource type="PrismMesh" load_steps=2 format=3 uid="uid://bg3jfryps3oek"]
 
-[ext_resource type="Material" uid="uid://dosc6jjayee8m" path="res://textures/new_standard_material_3d.tres" id="1_7x6xo"]
+[ext_resource type="Material" uid="uid://dosc6jjayee8m" path="res://textures/player.tres" id="1_7x6xo"]
 
 [resource]
 lightmap_size_hint = Vector2i(14, 21)

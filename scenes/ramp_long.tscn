@@ -1,48 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7xoi4nxruh4m"]
+[gd_scene load_steps=6 format=3 uid="uid://b7xoi4nxruh4m"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_b8kkj"]
 [ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_lpxhh"]
-
-[sub_resource type="Gradient" id="Gradient_q0hgi"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_xw1tt"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f22n2"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-color_ramp = SubResource("Gradient_q0hgi")
-noise = SubResource("FastNoiseLite_xw1tt")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_peaxg"]
-albedo_color = Color(0.0736, 0.155733, 0.32, 1)
-metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_f22n2")
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_f22n2")
+[ext_resource type="Material" uid="uid://8jkcngsq66dd" path="res://textures/ground.tres" id="3_rr7mu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_scl8f"]
 size = Vector3(6.26172, 501, 94.3745)
-
-[sub_resource type="Gradient" id="Gradient_c7f2a"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_1od3w"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_oubgn"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-color_ramp = SubResource("Gradient_c7f2a")
-noise = SubResource("FastNoiseLite_1od3w")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a6v3"]
-albedo_color = Color(0.0799457, 0.163749, 0.325504, 1)
-metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_oubgn")
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_oubgn")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
 size = Vector3(6.25293, 1.44801, 4.01685)
@@ -61,7 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.44748e-06, -235.641, 51.2493)
 size = Vector3(6.23145, 501, 94.2827)
-material = SubResource("StandardMaterial3D_peaxg")
+material = ExtResource("3_rr7mu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
@@ -77,7 +40,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Node3D4"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, -1.54034, -22.256)
 size = Vector3(6.2793, 1.47531, 4.017)
-material = SubResource("StandardMaterial3D_7a6v3")
+material = ExtResource("3_rr7mu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Node3D4"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, -1.52701, -22.2532)

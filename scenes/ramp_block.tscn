@@ -1,26 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://biqifqlm50skc"]
+[gd_scene load_steps=11 format=3 uid="uid://biqifqlm50skc"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_ovidh"]
 [ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_4f85i"]
-
-[sub_resource type="Gradient" id="Gradient_l4ork"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_kok73"]
-noise_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_838ca"]
-in_3d_space = true
-seamless = true
-as_normal_map = true
-color_ramp = SubResource("Gradient_l4ork")
-noise = SubResource("FastNoiseLite_kok73")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a6v3"]
-albedo_color = Color(0.0736, 0.155733, 0.32, 1)
-metallic = 0.2
-roughness_texture = SubResource("NoiseTexture2D_838ca")
-normal_enabled = true
-normal_texture = SubResource("NoiseTexture2D_838ca")
+[ext_resource type="Material" uid="uid://8jkcngsq66dd" path="res://textures/ground.tres" id="3_sxrly"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
 size = Vector3(6.26172, 501, 94.3745)
@@ -67,7 +49,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.44748e-06, -235.641, 51.2493)
 size = Vector3(6.23145, 501, 94.2827)
-material = SubResource("StandardMaterial3D_7a6v3")
+material = ExtResource("3_sxrly")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
@@ -83,7 +65,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Ramp"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, -1.54034, -22.256)
 size = Vector3(6.2793, 1.47531, 4.017)
-material = SubResource("StandardMaterial3D_7a6v3")
+material = ExtResource("3_sxrly")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Ramp"]
 transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, -1.52701, -22.2532)

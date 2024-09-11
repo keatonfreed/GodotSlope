@@ -1,7 +1,8 @@
 extends RigidBody3D
 
-@export var rolling_force = 75
+@export var rolling_force = 80
 @export var jump_force = 1000
+@export var down_force = 1100
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,37 +17,48 @@ var is_dead = false
 
 var deathAnimElapsed = 0.0
 
+var originalBounce = physics_material_override.bounce
+
 func _process(delta):
 	if(is_dead):
 		var min_angle = deg_to_rad(0.0)
-		var max_angle = deg_to_rad(13.0)
+		var max_angle = deg_to_rad(5.0)
 		
 		$CameraRig.rotation.x = lerp_angle(min_angle, max_angle, deathAnimElapsed)
 		deathAnimElapsed += delta
 
-	
+var used_down_force = false
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	$CameraRig.global_rotation = Vector3.ZERO
 	var last_cam_pos = $CameraRig.global_transform.origin
 	var ball_pos = global_transform.origin
-	var new_cam_pos = lerp(last_cam_pos,ball_pos,0.1)
+	var new_cam_pos = lerp(last_cam_pos,ball_pos,0.13)
 	if(is_dead):
-		new_cam_pos = lerp(last_cam_pos,ball_pos+Vector3(0,4,-2),0.03)
+		new_cam_pos = lerp(last_cam_pos,ball_pos+Vector3(0,12,-5),0.03)
 		
 	$CameraRig.global_transform.origin = new_cam_pos
 	
 	$FloorCheck.global_transform.origin = ball_pos
+	
+	var is_on_floor = $FloorCheck.is_colliding()
 	
 	if Input.is_action_pressed("LeftMove") and can_move:
 		apply_central_impulse(Vector3(rolling_force,0,0))
 	if Input.is_action_pressed("RightMove") and can_move:
 		apply_central_impulse(Vector3(-rolling_force,0,0))
 		
-	var is_on_floor = $FloorCheck.is_colliding()
+	if Input.is_action_pressed("DownMove") and not Input.is_action_pressed("Jump") and can_move and not used_down_force and not is_on_floor:
+		apply_central_impulse(Vector3(0,-down_force,3))
+		physics_material_override.bounce = 0
+		used_down_force = true
+		
 	if is_on_floor:
+		physics_material_override.bounce = originalBounce
+		used_down_force = false
 		can_move = true
-		apply_central_impulse(Vector3(0,-1,5))
+		apply_central_impulse(Vector3(0,-1,13))
 		var now_time = Time.get_ticks_msec()
 		if Input.is_action_pressed("Jump") and now_time - last_jumped > 100:
 			last_jumped = now_time
