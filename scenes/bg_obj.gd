@@ -6,7 +6,7 @@ extends Node3D
 func _process(delta: float) -> void:
 	
 	#print(str(player_node.global_position.z) + " " + str(global_position.z))
-	if(player_node.global_position.z > global_position.z + 200):
+	if(player_node.global_position.z > global_position.z + 130):
 		queue_free()
 		#print("Delete")
 

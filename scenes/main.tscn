@@ -1,12 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=20 format=3 uid="uid://c6royrla4ony2"]
 
 [ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
 [ext_resource type="Script" path="res://scripts/ramp_def.gd" id="3_g1uq4"]
-[ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/ramp.tscn" id="3_ullax"]
-[ext_resource type="PackedScene" uid="uid://b7xoi4nxruh4m" path="res://scenes/ramp_long.tscn" id="5_r5ivx"]
-[ext_resource type="PackedScene" uid="uid://biqifqlm50skc" path="res://scenes/ramp_block.tscn" id="6_d4px6"]
-[ext_resource type="PackedScene" uid="uid://bnd8wifl6qr15" path="res://scenes/ramp_jumps.tscn" id="7_mnv1y"]
+[ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/Ramps/ramp.tscn" id="3_ullax"]
+[ext_resource type="PackedScene" uid="uid://b7xoi4nxruh4m" path="res://scenes/Ramps/ramp_long.tscn" id="5_r5ivx"]
+[ext_resource type="PackedScene" uid="uid://biqifqlm50skc" path="res://scenes/Ramps/ramp_block.tscn" id="6_d4px6"]
+[ext_resource type="PackedScene" uid="uid://bnd8wifl6qr15" path="res://scenes/Ramps/ramp_jumps.tscn" id="7_mnv1y"]
+[ext_resource type="PackedScene" uid="uid://k0wt7ar5sq8u" path="res://scenes/Ramps/ramp_slant_left.tscn" id="8_ayos1"]
+[ext_resource type="PackedScene" uid="uid://baqpwbtuws2w6" path="res://scenes/Ramps/ramp_slant_right.tscn" id="9_oolvh"]
+[ext_resource type="PackedScene" uid="uid://cv5pr5qg211ml" path="res://scenes/bg_star.tscn" id="11_ysi7n"]
 
 [sub_resource type="Environment" id="Environment_nl3g5"]
 background_mode = 1
@@ -51,7 +54,25 @@ ramp_scene = ExtResource("7_mnv1y")
 ramp_length = 105
 ramp_height = 38
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="Resource" id="Resource_eadal"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("8_ayos1")
+ramp_length = 67
+ramp_height = 30
+
+[sub_resource type="Resource" id="Resource_0nxg0"]
+script = ExtResource("3_g1uq4")
+ramp_scene = ExtResource("9_oolvh")
+ramp_length = 67
+ramp_height = 30
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eqsum"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_24h52"]
+radial_segments = 8
+rings = 4
+
+[node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.5, -0.75, 0.433013, 0, 0.5, 0.866025, -0.866026, -0.433013, 0.25, 0, 5, 0)
@@ -66,6 +87,18 @@ mass = 115.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_nl3g5")
 
-[node name="Ramps" type="Node3D" parent="."]
+[node name="Objects" type="Node" parent="."]
 script = ExtResource("3_crks3")
-ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr"), SubResource("Resource_n3ls6")])
+ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr"), SubResource("Resource_n3ls6"), SubResource("Resource_eadal"), SubResource("Resource_0nxg0")])
+bg_defs = Array[PackedScene]([ExtResource("11_ysi7n")])
+
+[node name="Ramps" type="Node" parent="Objects"]
+
+[node name="Backgrounds" type="Node" parent="Objects"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 20
+lifetime = 20.0
+process_material = SubResource("ParticleProcessMaterial_eqsum")
+draw_pass_1 = SubResource("SphereMesh_24h52")
