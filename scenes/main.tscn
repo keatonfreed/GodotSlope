@@ -23,12 +23,19 @@ glow_intensity = 3.75
 glow_bloom = 0.5
 glow_blend_mode = 4
 glow_hdr_threshold = 2.0
+fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0.0435, 0.0455583, 0.05, 1)
+fog_light_color = Color(0, 0, 0, 1)
 fog_light_energy = 16.0
-fog_density = 0.8
-volumetric_fog_density = 0.02
-volumetric_fog_albedo = Color(0.642353, 0.827379, 1, 1)
+fog_density = 1.0
+fog_depth_curve = 5.27802
+fog_depth_begin = 450.0
+fog_depth_end = 700.0
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0, 0, 0, 1)
+volumetric_fog_length = 300.0
+volumetric_fog_detail_spread = 6.0
 
 [sub_resource type="Resource" id="Resource_ehqe0"]
 script = ExtResource("3_g1uq4")

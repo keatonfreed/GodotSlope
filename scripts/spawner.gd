@@ -37,27 +37,34 @@ func _process(delta: float) -> void:
 		
 			
 		
-		ramp_current_z += ramp_defs[rand_ramp_ind].ramp_length
-		ramp_current_y -= ramp_defs[rand_ramp_ind].ramp_height
-		ramp_ind += 1
 		
-		
-		for i in range(100):
-			var bg_spawn_x = randf_range(20,350)
+		var star_amt = 250
+		for i in range(star_amt):
+			var bg_spawn_x = randf_range(15,400)
 
 			var rand_bg_ind = randi_range(0,len(bg_defs)-1)
 			var new_bg = bg_defs[rand_bg_ind].instantiate()
 					
 			$Backgrounds.add_child(new_bg)
 			#print("Made " + str(rand_bg_ind) + " with " + str(bg_defs[rand_bg_ind]))
-			new_bg.transform = Transform3D.IDENTITY
+			#new_bg.transform = Transform3D.IDENTITY
 			
 			var flip = randi_range(0,-1)
 			if flip == 0:
 				flip = 1
 			#new_bg.position = Vector3(0,bg_index * (-bg_height),bg_index * bg_length)
-			new_bg.global_transform.origin = Vector3(bg_spawn_x * flip,ramp_current_y+randf_range(-60,90),star_current_z)
-			star_current_z+=1
+			var this_star_y = randi_range(-200,200)
+			if(this_star_y>20):
+				bg_spawn_x += randi_range(-5,5)
+			this_star_y+=ramp_current_y
+			#print("spawn: " + str(ramp_current_y))
+			new_bg.global_position = Vector3(bg_spawn_x * flip,this_star_y,star_current_z)
+			#star_current_z += 0.5
+			#print(float(ramp_defs[rand_ramp_ind].ramp_length) / star_amt)
+			star_current_z += float(ramp_defs[rand_ramp_ind].ramp_length) / star_amt
 	
+		ramp_current_z += ramp_defs[rand_ramp_ind].ramp_length
+		ramp_current_y -= ramp_defs[rand_ramp_ind].ramp_height
+		ramp_ind += 1
 		
 		#$Ramp.global_position.z = player_node.global_position.z

@@ -12,6 +12,7 @@ script = ExtResource("1_yudyq")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="."]
 transform = Transform3D(0.999993, 0.00359335, -0.00106055, -0.0035923, 0.999993, 0.000989714, 0.0010641, -0.000985895, 0.999999, 0, 0, 0)
+cast_shadow = 0
 radius = 2.0
 radial_segments = 4
 rings = 2

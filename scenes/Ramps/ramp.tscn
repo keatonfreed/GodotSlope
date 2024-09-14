@@ -22,7 +22,7 @@ transform = Transform3D(100, 0, 0, 0, 97.4366, -22.4968, 0, 22.4968, 97.4366, 0,
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
-transform = Transform3D(-1, 2.26267e-08, -8.44439e-08, 0, 0.965926, 0.258819, 8.74228e-08, 0.258819, -0.965926, 0, -231.204, 34.692)
+transform = Transform3D(-1, 0.000269498, -0.00020357, 0.00020772, 0.966023, 0.258455, 0.000266312, 0.258455, -0.966023, 0, -231.204, 34.692)
 size = Vector3(10, 501, 60)
 material = ExtResource("3_lxjs8")
 
