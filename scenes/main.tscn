@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=29 format=3 uid="uid://c6royrla4ony2"]
 
 [ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
@@ -9,7 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://bnd8wifl6qr15" path="res://scenes/Ramps/ramp_jumps.tscn" id="7_mnv1y"]
 [ext_resource type="PackedScene" uid="uid://k0wt7ar5sq8u" path="res://scenes/Ramps/ramp_slant_left.tscn" id="8_ayos1"]
 [ext_resource type="PackedScene" uid="uid://baqpwbtuws2w6" path="res://scenes/Ramps/ramp_slant_right.tscn" id="9_oolvh"]
+[ext_resource type="Script" path="res://scripts/score.gd" id="11_ie8fv"]
 [ext_resource type="PackedScene" uid="uid://cv5pr5qg211ml" path="res://scenes/bg_star.tscn" id="11_ysi7n"]
+[ext_resource type="Script" path="res://scripts/mute.gd" id="12_al0v0"]
+[ext_resource type="AudioStream" uid="uid://df3fhm5ds3cc3" path="res://audio/SwanLake8bit.mp3" id="12_bfgc8"]
+[ext_resource type="Texture2D" uid="uid://dqvkqxm0sucqx" path="res://textures/mute.png" id="12_tg2kp"]
+[ext_resource type="AudioStream" uid="uid://cqc02yyphge5s" path="res://audio/explod8bit.mp3" id="13_a14ck"]
 
 [sub_resource type="Environment" id="Environment_nl3g5"]
 background_mode = 1
@@ -79,6 +84,21 @@ ramp_height = 30
 radial_segments = 8
 rings = 4
 
+[sub_resource type="SystemFont" id="SystemFont_by88p"]
+
+[sub_resource type="FontVariation" id="FontVariation_ag6fi"]
+base_font = SubResource("SystemFont_by88p")
+variation_embolden = 1.52
+spacing_glyph = 5
+
+[sub_resource type="InputEventKey" id="InputEventKey_xc5xq"]
+device = -1
+keycode = 77
+unicode = 109
+
+[sub_resource type="Shortcut" id="Shortcut_5o580"]
+events = [SubResource("InputEventKey_xc5xq")]
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -109,3 +129,55 @@ amount = 20
 lifetime = 20.0
 process_material = SubResource("ParticleProcessMaterial_eqsum")
 draw_pass_1 = SubResource("SphereMesh_24h52")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="ScoreLabel" type="Label" parent="Canvas"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -36.5
+offset_top = 50.0
+offset_right = 36.5
+offset_bottom = 138.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("FontVariation_ag6fi")
+theme_override_font_sizes/font_size = 90
+text = "0
+"
+script = ExtResource("11_ie8fv")
+
+[node name="MuteButton" type="Button" parent="Canvas"]
+modulate = Color(1, 1, 1, 0.490196)
+custom_minimum_size = Vector2(75, 75)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -378.0
+offset_top = -378.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(368, 368)
+focus_mode = 0
+toggle_mode = true
+action_mode = 0
+shortcut = SubResource("Shortcut_5o580")
+icon = ExtResource("12_tg2kp")
+flat = true
+script = ExtResource("12_al0v0")
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bfgc8")
+autoplay = true
+parameters/looping = true
+
+[node name="DieSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_a14ck")
+
+[connection signal="toggled" from="Canvas/MuteButton" to="Canvas/MuteButton" method="_on_toggled"]

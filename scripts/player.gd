@@ -4,6 +4,9 @@ extends RigidBody3D
 @export var jump_force = 1000
 @export var down_force = 1100
 
+@onready var bg_music = get_node("/root/Main/BGMusic")
+@onready var die_sfx = get_node("/root/Main/DieSFX")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$CameraRig.top_level = true
@@ -26,6 +29,9 @@ func _process(delta):
 		
 		$CameraRig.rotation.x = lerp_angle(min_angle, max_angle, deathAnimElapsed)
 		deathAnimElapsed += delta
+		bg_music.volume_db -= 1*delta
+		bg_music.pitch_scale = max(bg_music.pitch_scale-0.5*delta,0)
+		
 
 var used_down_force = false
 
@@ -54,6 +60,11 @@ func _physics_process(delta: float) -> void:
 		physics_material_override.bounce = 0
 		used_down_force = true
 		
+	if Input.is_key_pressed(KEY_QUOTELEFT) and not is_dead:
+		freeze = true
+	elif not is_dead:
+		freeze = false
+		
 	if is_on_floor:
 		physics_material_override.bounce = originalBounce
 		used_down_force = false
@@ -70,15 +81,24 @@ func _physics_process(delta: float) -> void:
 		#print(node.get_groups())
 		if not is_dead and (node.is_in_group("DeathBlock") or Input.is_key_pressed(KEY_R)):
 			#print("DIEE")
-			is_dead = true
-			$Particles.global_rotation = Vector3(-50,0,0)
-			$Particles.emitting = true
-			$Model.visible = false
-			freeze = true
-			$DeathTimer.start()
+			start_die()
+			
 			#get_tree().reload_current_scene()
 
-
+func start_die(down = false):
+	is_dead = true
+	if down:
+		$Particles.global_rotation = Vector3(-100,0,0)
+		$Particles.speed_scale = 1.8
+	else:
+		$Particles.global_rotation = Vector3(-50,0,0)
+		
+		
+	$Particles.emitting = true
+	$Model.visible = false
+	freeze = true
+	$DeathTimer.start()
+	die_sfx.play()
 
 func _on_death_timer_timeout() -> void:
 	get_tree().reload_current_scene()
