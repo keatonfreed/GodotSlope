@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c4v0l5hsvl1jd"]
+[gd_scene load_steps=11 format=3 uid="uid://c4v0l5hsvl1jd"]
 
 [ext_resource type="Script" path="res://scripts/ramp.gd" id="1_b84v6"]
 [ext_resource type="PackedScene" uid="uid://daohb45xnnvsf" path="res://scenes/death_zone.tscn" id="2_fe3fh"]
@@ -6,13 +6,51 @@
 [ext_resource type="Material" uid="uid://dhkejbg1o3j2o" path="res://textures/death.tres" id="4_wxiit"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mb2s3"]
-size = Vector3(6.26172, 501, 94.3745)
+size = Vector3(17, 501, 94.3745)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nckkp"]
 size = Vector3(6.4502, 1.44801, 4.01685)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k7mr0"]
 size = Vector3(2.35986, 7.21534, 4.01685)
+
+[sub_resource type="Animation" id="Animation_43eqe"]
+resource_name = "move_block"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(2.5, -40, 165.249), Vector3(-17, -40, 165.249)]
+}
+
+[sub_resource type="Animation" id="Animation_p032c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-17, -40, 165.249)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5djik"]
+_data = {
+"RESET": SubResource("Animation_p032c"),
+"move_block": SubResource("Animation_43eqe")
+}
 
 [node name="Node3D5" type="Node3D"]
 script = ExtResource("1_b84v6")
@@ -27,7 +65,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.8616, -73.8183)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.44748e-06, -235.641, 51.2493)
-size = Vector3(6.23145, 501, 94.2827)
+size = Vector3(17, 501, 94.2827)
 material = ExtResource("3_8x7h4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Floor"]
@@ -36,53 +74,55 @@ shape = SubResource("BoxShape3D_mb2s3")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Floor"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 1.45136e-06, -235.652, 51.2936)
-size = Vector3(6.26172, 501, 94.3745)
+size = Vector3(17, 501, 94.3745)
 
 [node name="Ramp" type="StaticBody3D" parent="Ramp"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Ramp"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -0.0049014, -1.54034, -22.256)
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -5.34349, -1.54034, -22.256)
 size = Vector3(6.2793, 1.47531, 4.017)
 material = ExtResource("3_8x7h4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Ramp"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.48858e-05, -1.52701, -22.2532)
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -5.33857, -1.52701, -22.2532)
 shape = SubResource("BoxShape3D_nckkp")
 
-[node name="Death2" type="StaticBody3D" parent="Ramp" groups=["DeathBlock"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 216.02)
+[node name="Ramp2" type="StaticBody3D" parent="Ramp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 108.01)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Death2"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.9733, 21.9552, -136.854)
-cast_shadow = 0
-size = Vector3(2.36133, 7.2108, 4.017)
-material = ExtResource("4_wxiit")
+[node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Ramp2"]
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 5.35988, -1.54034, -22.256)
+size = Vector3(6.2793, 1.47531, 4.017)
+material = ExtResource("3_8x7h4")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Death2"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, -1.93611, 21.9577, -136.818)
-shape = SubResource("BoxShape3D_k7mr0")
-
-[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Death2"]
-transform = Transform3D(-1, -1.17628e-05, -1.50724e-07, -1.17326e-05, 0.998198, -0.0600012, 8.56236e-07, -0.0600012, -0.998198, -1.93611, 21.9577, -136.818)
-size = Vector3(2.35986, 7.21534, 4.01685)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Ramp2"]
+transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 5.3648, -1.52701, -22.2532)
+shape = SubResource("BoxShape3D_nckkp")
 
 [node name="Death1" type="StaticBody3D" parent="Ramp" groups=["DeathBlock"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -40, 165.249)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, -40, 165.249)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Ramp/Death1"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.94495, 28.3103, -113.968)
+transform = Transform3D(-1, -1.17591e-05, -8.67504e-08, -1.0091e-05, 0.861897, -0.507086, 6.03758e-06, -0.507086, -0.861897, 7.30665, 33.1479, -128.417)
 cast_shadow = 0
 size = Vector3(2.36133, 7.2108, 4.017)
 material = ExtResource("4_wxiit")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/Death1"]
-transform = Transform3D(-1, -1.17591e-05, -8.67514e-08, -1.17326e-05, 0.998199, -0.0600012, 7.92149e-07, -0.0600012, -0.998199, 1.98214, 28.3128, -113.932)
+transform = Transform3D(-1, -1.17591e-05, -8.67504e-08, -1.0091e-05, 0.861897, -0.507086, 6.03758e-06, -0.507086, -0.861897, 7.34384, 33.1665, -128.386)
 shape = SubResource("BoxShape3D_k7mr0")
 
 [node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="Ramp/Death1"]
-transform = Transform3D(-1, -1.17628e-05, -1.50724e-07, -1.17326e-05, 0.998198, -0.0600012, 8.56236e-07, -0.0600012, -0.998198, 1.98214, 28.3128, -113.932)
+transform = Transform3D(-1, -1.17628e-05, -1.50724e-07, -1.00619e-05, 0.861896, -0.507085, 6.09467e-06, -0.507085, -0.861896, 7.34384, 33.1665, -128.386)
 size = Vector3(2.35986, 7.21534, 4.01685)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ramp"]
+root_node = NodePath("../Death1")
+libraries = {
+"": SubResource("AnimationLibrary_5djik")
+}
+autoplay = "move_block"
 
 [node name="DeathZone2" parent="." instance=ExtResource("2_fe3fh")]
 transform = Transform3D(169.139, 0, 0, 0, 164.803, -38.0509, 0, 38.0509, 164.803, 0, -65.125, -4.10777)

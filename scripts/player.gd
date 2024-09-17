@@ -29,8 +29,8 @@ func _process(delta):
 		
 		$CameraRig.rotation.x = lerp_angle(min_angle, max_angle, deathAnimElapsed)
 		deathAnimElapsed += delta
-		bg_music.volume_db -= 1*delta
-		bg_music.pitch_scale = max(bg_music.pitch_scale-0.5*delta,0)
+		bg_music.volume_db -= 1.5*delta
+		bg_music.pitch_scale = max(bg_music.pitch_scale-0.5*delta,0.01)
 		
 
 var used_down_force = false
@@ -60,10 +60,10 @@ func _physics_process(delta: float) -> void:
 		physics_material_override.bounce = 0
 		used_down_force = true
 		
-	if Input.is_key_pressed(KEY_QUOTELEFT) and not is_dead:
-		freeze = true
-	elif not is_dead:
-		freeze = false
+		#if Input.is_key_pressed(KEY_QUOTELEFT) and not is_dead:
+			#freeze = true
+		#elif not is_dead:
+			#freeze = false
 		
 	if is_on_floor:
 		physics_material_override.bounce = originalBounce

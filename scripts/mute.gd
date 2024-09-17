@@ -14,4 +14,4 @@ func _pressed() -> void:
 func update_muted():
 	bg_music.volume_db = -100 if GlobalSettings.muted else 0
 	die_sfx.volume_db = -100 if GlobalSettings.muted else 0
-	modulate.a = 1 if GlobalSettings.muted else 0.2
+	modulate.a = 1 if GlobalSettings.muted else 0.8

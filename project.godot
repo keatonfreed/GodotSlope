@@ -60,3 +60,7 @@ DownMove={
 [physics]
 
 3d/physics_engine="GodotPhysics3D"
+
+[rendering]
+
+textures/vram_compression/import_etc2_astc=true
