@@ -19,11 +19,6 @@ config/icon="res://icon.svg"
 
 GlobalSettings="*res://scripts/Global_Settings.gd"
 
-[display]
-
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-
 [global_group]
 
 DeathBlock=""
@@ -59,8 +54,11 @@ DownMove={
 
 [physics]
 
+common/physics_ticks_per_second=1
 3d/physics_engine="GodotPhysics3D"
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

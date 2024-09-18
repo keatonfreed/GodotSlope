@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=33 format=3 uid="uid://c6royrla4ony2"]
 
 [ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
@@ -16,32 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://df3fhm5ds3cc3" path="res://audio/SwanLake8bit.mp3" id="12_bfgc8"]
 [ext_resource type="Texture2D" uid="uid://dqvkqxm0sucqx" path="res://textures/mute.png" id="12_tg2kp"]
 [ext_resource type="AudioStream" uid="uid://cqc02yyphge5s" path="res://audio/explod8bit.mp3" id="13_a14ck"]
-
-[sub_resource type="Environment" id="Environment_nl3g5"]
-background_mode = 1
-background_color = Color(0.00340092, 0.00476283, 0.00606321, 1)
-background_energy_multiplier = 1.8
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
-glow_enabled = true
-glow_normalized = true
-glow_intensity = 3.75
-glow_bloom = 0.5
-glow_blend_mode = 4
-glow_hdr_threshold = 2.0
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_light_energy = 16.0
-fog_density = 1.0
-fog_depth_curve = 5.27802
-fog_depth_begin = 450.0
-fog_depth_end = 700.0
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
-volumetric_fog_albedo = Color(0, 0, 0, 1)
-volumetric_fog_length = 300.0
-volumetric_fog_detail_spread = 6.0
+[ext_resource type="Script" path="res://scenes/camera_3d.gd" id="17_sxxfu"]
 
 [sub_resource type="Resource" id="Resource_ehqe0"]
 script = ExtResource("3_g1uq4")
@@ -106,6 +81,11 @@ unicode = 109
 [sub_resource type="Shortcut" id="Shortcut_5o580"]
 events = [SubResource("InputEventKey_xc5xq")]
 
+[sub_resource type="Environment" id="Environment_xfu6f"]
+ambient_light_color = Color(0.65834, 0.65834, 0.65834, 1)
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_og2rh"]
+
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -117,9 +97,6 @@ shadow_blur = 1.989
 [node name="Player" parent="." instance=ExtResource("1_tergn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
 mass = 115.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_nl3g5")
 
 [node name="Objects" type="Node" parent="."]
 script = ExtResource("3_crks3")
@@ -186,5 +163,16 @@ parameters/looping = true
 
 [node name="DieSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_a14ck")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(-0.300268, 0.370493, -0.878962, 0.11977, 0.928835, 0.350599, 0.946306, -7.05053e-09, -0.323273, -4.45032, 3.19705, 0)
+size = Vector3(1.68, 1.28, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.300268, 0.370493, -0.878962, 0.11977, 0.928835, 0.350599, 0.946306, 0, -0.323273, -13.2848, 7.02633, 0)
+environment = SubResource("Environment_xfu6f")
+attributes = SubResource("CameraAttributesPractical_og2rh")
+current = true
+script = ExtResource("17_sxxfu")
 
 [connection signal="toggled" from="Canvas/MuteButton" to="Canvas/MuteButton" method="_on_toggled"]
