@@ -1,64 +1,22 @@
-[gd_scene load_steps=33 format=3 uid="uid://c6royrla4ony2"]
+[gd_scene load_steps=21 format=3 uid="uid://c7tmjebb4o5tu"]
 
-[ext_resource type="PackedScene" uid="uid://d1kvv48505hsb" path="res://scenes/player.tscn" id="1_tergn"]
 [ext_resource type="Script" path="res://scripts/spawner.gd" id="3_crks3"]
 [ext_resource type="Script" path="res://scripts/ramp_def.gd" id="3_g1uq4"]
 [ext_resource type="PackedScene" uid="uid://d2wxvdtt5ekue" path="res://scenes/Ramps/ramp.tscn" id="3_ullax"]
+[ext_resource type="PackedScene" uid="uid://5otagtu7qwac" path="res://scenes/fake_obj.tscn" id="4_lnuaa"]
 [ext_resource type="PackedScene" uid="uid://b7xoi4nxruh4m" path="res://scenes/Ramps/ramp_long.tscn" id="5_r5ivx"]
-[ext_resource type="PackedScene" uid="uid://biqifqlm50skc" path="res://scenes/Ramps/ramp_block.tscn" id="6_d4px6"]
-[ext_resource type="PackedScene" uid="uid://bnd8wifl6qr15" path="res://scenes/Ramps/ramp_jumps.tscn" id="7_mnv1y"]
-[ext_resource type="PackedScene" uid="uid://k0wt7ar5sq8u" path="res://scenes/Ramps/ramp_slant_left.tscn" id="8_ayos1"]
-[ext_resource type="PackedScene" uid="uid://baqpwbtuws2w6" path="res://scenes/Ramps/ramp_slant_right.tscn" id="9_oolvh"]
-[ext_resource type="PackedScene" uid="uid://c4v0l5hsvl1jd" path="res://scenes/Ramps/ramp_moving.tscn" id="10_04u3p"]
 [ext_resource type="Script" path="res://scripts/score.gd" id="11_ie8fv"]
-[ext_resource type="PackedScene" uid="uid://cv5pr5qg211ml" path="res://scenes/bg_star.tscn" id="11_ysi7n"]
 [ext_resource type="Script" path="res://scripts/mute.gd" id="12_al0v0"]
 [ext_resource type="AudioStream" uid="uid://df3fhm5ds3cc3" path="res://audio/SwanLake8bit.mp3" id="12_bfgc8"]
 [ext_resource type="Texture2D" uid="uid://dqvkqxm0sucqx" path="res://textures/mute.png" id="12_tg2kp"]
 [ext_resource type="AudioStream" uid="uid://cqc02yyphge5s" path="res://audio/explod8bit.mp3" id="13_a14ck"]
 [ext_resource type="Script" path="res://scenes/camera_3d.gd" id="17_sxxfu"]
 
-[sub_resource type="Resource" id="Resource_ehqe0"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("3_ullax")
-ramp_length = 65
-ramp_height = 23
-
-[sub_resource type="Resource" id="Resource_ac7o4"]
+[sub_resource type="Resource" id="Resource_geqbm"]
 script = ExtResource("3_g1uq4")
 ramp_scene = ExtResource("5_r5ivx")
-ramp_length = 107
-ramp_height = 35
-
-[sub_resource type="Resource" id="Resource_u2qsr"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("6_d4px6")
-ramp_length = 107
-ramp_height = 35
-
-[sub_resource type="Resource" id="Resource_n3ls6"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("7_mnv1y")
-ramp_length = 105
-ramp_height = 38
-
-[sub_resource type="Resource" id="Resource_eadal"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("8_ayos1")
-ramp_length = 67
-ramp_height = 30
-
-[sub_resource type="Resource" id="Resource_0nxg0"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("9_oolvh")
-ramp_length = 67
-ramp_height = 30
-
-[sub_resource type="Resource" id="Resource_5ijhe"]
-script = ExtResource("3_g1uq4")
-ramp_scene = ExtResource("10_04u3p")
-ramp_length = 110
-ramp_height = 30
+ramp_length = 65
+ramp_height = 20
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eqsum"]
 
@@ -94,18 +52,21 @@ light_energy = 1.5
 shadow_enabled = true
 shadow_blur = 1.989
 
-[node name="Player" parent="." instance=ExtResource("1_tergn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7, 0)
-mass = 115.0
+[node name="Player" type="Node3D" parent="."]
 
 [node name="Objects" type="Node" parent="."]
 script = ExtResource("3_crks3")
-ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_ehqe0"), SubResource("Resource_ac7o4"), SubResource("Resource_u2qsr"), SubResource("Resource_n3ls6"), SubResource("Resource_eadal"), SubResource("Resource_0nxg0"), SubResource("Resource_5ijhe")])
-bg_defs = Array[PackedScene]([ExtResource("11_ysi7n")])
+ramp_defs = Array[ExtResource("3_g1uq4")]([SubResource("Resource_geqbm")])
+bg_defs = Array[PackedScene]([ExtResource("4_lnuaa")])
 
 [node name="Ramps" type="Node" parent="Objects"]
 
+[node name="Node3D5" parent="Objects/Ramps" instance=ExtResource("3_ullax")]
+
 [node name="Backgrounds" type="Node" parent="Objects"]
+
+[node name="CSGBox3D" parent="Objects/Backgrounds" instance=ExtResource("4_lnuaa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.01621, 0)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 emitting = false
@@ -131,6 +92,7 @@ theme_override_font_sizes/font_size = 90
 text = "0
 "
 script = ExtResource("11_ie8fv")
+metadata/_edit_use_anchors_ = true
 
 [node name="MuteButton" type="Button" parent="Canvas"]
 modulate = Color(1, 1, 1, 0.490196)

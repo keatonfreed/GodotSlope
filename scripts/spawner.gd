@@ -4,7 +4,7 @@ extends Node
 
 @export var bg_defs: Array[PackedScene] = []
 
-@onready var player_node = $"../Player"
+#@onready var player_node = $"../Player"
 
 var star_current_z = 0
 var spawned_ramps:Array[Node3D] = []
@@ -19,9 +19,15 @@ var ramp_spawn_dist = 1000
 var ramp_current_z = 0
 var ramp_current_y = 0
 var ramp_ind = 0;
+
+var blajsd = false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	while(player_node.global_position.z > ramp_current_z-ramp_spawn_dist):
+	
+	#while(1 > ramp_current_z-ramp_spawn_dist):
+	if blajsd == false:
+		blajsd = true
+	#while(player_node.global_position.z > ramp_current_z-ramp_spawn_dist):
 		var rand_ramp_ind = randi_range(0,len(ramp_defs)-1)
 		var ramp_spawn_x = randf_range(-5,5)
 		if(ramp_ind == 0):
@@ -50,26 +56,31 @@ func _process(delta: float) -> void:
 		
 		#star_current_z += float(ramp_defs[rand_ramp_ind].ramp_length) / star_amt
 		
+	#return
 		#$Ramp.global_position.z = player_node.global_position.z
 	if(stars_spawned == true): 
 		return
 		
-	
+	var bg = $Backgrounds
 	stars_spawned = true
-	var star_amt = 1900
+	var star_amt = 300
 	for i in range(star_amt):
 		var rand_bg_ind = randi_range(0,len(bg_defs)-1)
 		var new_bg = bg_defs[rand_bg_ind].instantiate()
 				
-		$Backgrounds.add_child(new_bg)
+		bg.add_child(new_bg)
 		move_star(new_bg)
+		#print(new_bg)
+		print("Made " + str(new_bg.position) )
 		#print("Made " + str(rand_bg_ind) + " with " + str(bg_defs[rand_bg_ind]))
+		continue
 		#new_bg.transform = Transform3D.IDENTITY
 		
 		#new_bg.position = Vector3(0,bg_index * (-bg_height),bg_index * bg_length)
 		
 			
 func move_star(star: Node3D):
+	
 	var this_star_y = randi_range(-230,300)
 		
 	var this_star_x = randf_range(15,480)
